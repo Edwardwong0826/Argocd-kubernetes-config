@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: spring-test-app
+spec:
+  selector:
+    matchLabels:
+      app: spring-test-app
+  replicas: 2 # Number of replicas that will be created for this deployment
+  strategy:
+    type: RollingUpdate #rolling update is the default strategy
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: spring-test-app
+    spec:
+      containers:
+        - name: spring-test-app
+          image: exrvoexmoon/spring-rest-new-0.0.1 # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081 # The port that the container is running on in the cluster
+#          livenessProbe:
+#            initialDelaySeconds: 60
+#            periodSeconds: 5
+#            httpGet:
+#              #scheme: HTTP
+#              path: /actuator/health/liveness
+#              port: 8081
+#              host: localhost
+          # with spring security, curl in pod return 401 unauthorized, related to security token, need to go security web configure
+          # the probe works in docker desktop context TCP type only
+#          readinessProbe:
+#            initialDelaySeconds: 10
+#            periodSeconds: 3
+##            httpGet:
+##              #scheme: HTTP
+##              path: /actuator/health/readiness
+##              port: 8081
+##              #host: localhost
+#            tcpSocket:
+#              port: 8081
