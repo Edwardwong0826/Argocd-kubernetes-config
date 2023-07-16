@@ -14,4 +14,4 @@ spec:
 status:
   loadBalancer:
     ingress:
-      - ip: localhost
+      - hostname: localhost
