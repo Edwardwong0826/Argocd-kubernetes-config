@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: spring-test-app
-  replicas: 2 # Number of replicas that will be created for this deployment
+  replicas: 3 # Number of replicas that will be created for this deployment
   strategy:
     type: RollingUpdate #rolling update is the default strategy
     rollingUpdate:
