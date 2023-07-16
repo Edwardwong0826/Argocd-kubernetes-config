@@ -10,7 +10,7 @@ spec:
     repoURL: https://github.com/Edwardwong0826/Argocd-kubernetes-config
     targetRevision: HEAD
     #path is to track specific path or folder
-#   path:
+    path: dev
   destination:
     server: https://kubernetes.default.svc
     namespace: default
