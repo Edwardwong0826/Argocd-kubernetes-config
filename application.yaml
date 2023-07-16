@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Edwardwong0826/Argocd-kubernetes-config
+    targetRevision: HEAD
+    #path is to track specific path or folder
+#   path:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  # By default, changes made to the live cluster will not trigger automated sync and prune
+  # and Argo polls Git repository every 3 minutes
+  # if selfHeal and prune is set to true, new changes in the repo will trigger immediately
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  # we can yse sync policy to create the namespace if not exist
+#    syncOptions:
+#      - CreateNamespace=true
+
