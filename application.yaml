@@ -5,12 +5,13 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
+  # defined which repository should be synced with which k8s cluster
   source:
     repoURL: https://github.com/Edwardwong0826/Argocd-kubernetes-config
     targetRevision: HEAD
     #path is to track specific path or folder
     path: dev
+  # can change to any k8s cluster we wanted, it could be k8s cluster where argo cd itself running it or external cluster that argo cd manages
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -26,3 +27,8 @@ spec:
 #    syncOptions:
 #      - CreateNamespace=true
 
+# this application yaml only apply for single cluster, if want to work on multiple cluster or multiple env please refer to the video https://www.youtube.com/watch?v=MeU5_k9ssrs
+
+# run kubectl apply -f application.yaml for argo cd start to sync with git repository and deploy to k8s cluster if there is any changes push to repository
+# can check in argo cd UI https://localhost:8080/applications?showFavorites=false&proj=&sync=&autoSync=&health=&namespace=&cluster=&labels=
+# example we can use CI pipeline to update the image tag or version in deployment.yaml in the source repoURL repository,
